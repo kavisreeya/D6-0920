@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>節氣行事曆 - 節氣財經網 SolarTerm Finance</title>
+  <style>
+    /* ==========================================================================
+       CSS 變數定義：莫蘭迪色彩與專業金融質感（沿用首頁）
+       ========================================================================== */
+    :root {
+      --bg-primary: #f4f5f6;     /* 頁面主要背景色 */
+      --bg-card: #ffffff;        /* 卡片與容器背景色 */
+      --text-main: #2b333e;      /* 主要文字顏色 */
+      --text-muted: #5a6578;     /* 次要與說明文字顏色 */
+      --accent-color: #a86255;   /* 莫蘭迪朱紅/赭石色：焦點與警示標記 */
+      --primary-color: #3d5a73;  /* 莫蘭迪藍灰：主要標題與品牌主色 */
+      --border-color: #dcdfe3;   /* 邊框分隔線顏色 */
+      --nav-bg: #2e3a46;         /* 頂部導覽列背景色 */
+      --nav-text: #e2e8f0;       /* 導覽列文字顏色 */
+      --footer-bg: #212932;      /* 頁尾背景色 */
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    header {
+      background-color: var(--nav-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #c5a059;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #c5a059;
+    }
+
+    /* ==========================================================================
+       主體內容通用容器 (Main Container)
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       頁面標題區塊 (Page Header Section)
+       ========================================================================== */
+    .page-header {
+      background: linear-gradient(135deg, #3d5a73 0%, #2b3d4f 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #e5c17c;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       通用區塊標題
+       ========================================================================== */
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.2rem;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    /* ==========================================================================
+       當前節氣焦點卡片 (Current Solar Term Featured)
+       ========================================================================== */
+    .current-term-card {
+      background-color: var(--bg-card);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .term-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .term-badge {
+      background-color: var(--accent-color);
+      color: #ffffff;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .term-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .term-name {
+      font-size: 1.6rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    .term-desc {
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .term-impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      background-color: var(--bg-primary);
+      padding: 1.25rem;
+      border-radius: 6px;
+    }
+
+    .impact-item h4 {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .impact-item p {
+      font-size: 0.95rem;
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       萬年曆與月曆控制區塊 (Calendar Section)
+       ========================================================================== */
+    .calendar-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .calendar-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .calendar-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    .calendar-btn {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .calendar-btn:hover {
+      background-color: #e2e8f0;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .calendar-day-head {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.5rem 0;
+      background-color: var(--bg-primary);
+      border-radius: 4px;
+    }
+
+    .calendar-day {
+      min-height: 75px;
+      background-color: var(--bg-primary);
+      border-radius: 4px;
+      padding: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      border: 1px solid transparent;
+      font-size: 0.85rem;
+    }
+
+    .calendar-day.empty {
+      background-color: transparent;
+    }
+
+    .calendar-day.today {
+      border-color: var(--accent-color);
+      background-color: rgba(168, 98, 85, 0.08);
+    }
+
+    .day-number {
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .day-tag {
+      font-size: 0.7rem;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 0.1rem 0.3rem;
+      border-radius: 2px;
+      margin-top: 0.3rem;
+      max-width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .day-tag.solarterm {
+      background-color: var(--accent-color);
+    }
+
+    /* ==========================================================================
+       國際財經行事曆列表
+       ========================================================================== */
+    .events-container {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .events-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .events-table th, .events-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .events-table th {
+      background-color: var(--bg-primary);
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .events-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .event-impact {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .impact-high {
+      background-color: rgba(168, 98, 85, 0.15);
+      color: var(--accent-color);
+    }
+
+    .impact-medium {
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #a37525;
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列：高亮「節氣行事曆」 -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">節氣財經網<span>SolarTerm Finance</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="calendar.html" class="active">節氣行事曆</a></li>
+          <li><a href="signals.html">技術警示</a></li>
+          <li><a href="notes.html">投資筆記</a></li>
+          <li><a href="news.html">全球脈動</a></li>
+          <li><a href="about.html">關於我們</a></li>
+          <li><a href="contact.html">社群聯絡</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容區域 -->
+  <main>
+
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="page-kicker">SOLAR TERM & FINANCIAL CALENDAR</div>
+      <h1 class="page-title">當前節氣與國際財經行事曆</h1>
+      <p class="page-subtitle">對照農民曆節氣時脈與全球主要央行利率會議、關鍵經濟數據，掌握第三季末至第四季資金轉向。</p>
+    </section>
+
+    <!-- 當前節氣焦點區塊 (依農民曆現時時間 9 月更新為：白露) -->
+    <section class="current-term-card">
+      <div class="term-meta">
+        <span class="term-badge">當前節氣焦點</span>
+        <span class="term-date">2026 年 9 月 7 日 - 9 月 22 日（農曆七月廿七至八月十二）</span>
+      </div>
+      <h2 class="term-name">白露 (Bailu)</h2>
+      <p class="term-desc">
+        陰氣漸重，露凝而白。在金融市場中，白露象徵秋季消費性電子備貨潮進入驗收階段（如 Apple 新機發布與供應鏈拉貨）。此時市場資金開始評估第三季季末作帳行情，並著手布局第四季傳統旺季。
+      </p>
+      <div class="term-impact-grid">
+        <div class="impact-item">
+          <h4>重點關注產業</h4>
+          <p>消費性電子、半導體封測、物流運輸</p>
+        </div>
+        <div class="impact-item">
+          <h4>農民曆與時令提示</h4>
+          <p>秋鷹乃祭，慎防高檔獲利了結賣壓</p>
+        </div>
+        <div class="impact-item">
+          <h4>關鍵金融事件</h4>
+          <p>美 FOMC 9 月利率會議、Q3 法人作帳</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 萬年曆區塊（對應 2026 年 9 月現況） -->
+    <section class="calendar-container">
+      <h2 class="section-title">2026 年 9 月農民曆與財經萬年曆</h2>
+      <div class="calendar-controls">
+        <button class="calendar-btn" onclick="changeMonth(-1)">&lt; 上一個月</button>
+        <span class="calendar-title" id="calendarMonthTitle">2026 年 9 月</span>
+        <button class="calendar-btn" onclick="changeMonth(1)">下一個月 &gt;</button>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-day-head">日</div>
+        <div class="calendar-day-head">一</div>
+        <div class="calendar-day-head">二</div>
+        <div class="calendar-day-head">三</div>
+        <div class="calendar-day-head">四</div>
+        <div class="calendar-day-head">五</div>
+        <div class="calendar-day-head">六</div>
+
+        <!-- 2026年9月1日為星期二，前有2個空白格 -->
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day empty"></div>
+
+        <div class="calendar-day"><span class="day-number">1</span></div>
+        <div class="calendar-day"><span class="day-number">2</span></div>
+        <div class="calendar-day"><span class="day-number">3</span></div>
+        <div class="calendar-day"><span class="day-number">4</span><span class="day-tag">非農數據</span></div>
+        <div class="calendar-day"><span class="day-number">5</span></div>
+
+        <div class="calendar-day today">
+          <span class="day-number">6</span>
+          <span class="day-tag">今日</span>
+        </div>
+        <div class="calendar-day">
+          <span class="day-number">7</span>
+          <span class="day-tag solarterm">白露 (12:41)</span>
+        </div>
+        <div class="calendar-day"><span class="day-number">8</span></div>
+        <div class="calendar-day"><span class="day-number">9</span></div>
+        <div class="calendar-day"><span class="day-number">10</span></div>
+        <div class="calendar-day"><span class="day-number">11</span><span class="day-tag">美 CPI 發布</span></div>
+        <div class="calendar-day"><span class="day-number">12</span></div>
+
+        <div class="calendar-day"><span class="day-number">13</span></div>
+        <div class="calendar-day"><span class="day-number">14</span></div>
+        <div class="calendar-day"><span class="day-number">15</span></div>
+        <div class="calendar-day"><span class="day-number">16</span></div>
+        <div class="calendar-day"><span class="day-number">17</span><span class="day-tag">FOMC 決議</span></div>
+        <div class="calendar-day"><span class="day-number">18</span></div>
+        <div class="calendar-day"><span class="day-number">19</span></div>
+
+        <div class="calendar-day"><span class="day-number">20</span></div>
+        <div class="calendar-day"><span class="day-number">21</span></div>
+        <div class="calendar-day">
+          <span class="day-number">22</span>
+          <span class="day-tag solarterm">秋分 (22:05)</span>
+        </div>
+        <div class="calendar-day"><span class="day-number">23</span></div>
+        <div class="calendar-day"><span class="day-number">24</span></div>
+        <div class="calendar-day"><span class="day-number">25</span><span class="day-tag solarterm">中秋節</span></div>
+        <div class="calendar-day"><span class="day-number">26</span></div>
+
+        <div class="calendar-day"><span class="day-number">27</span></div>
+        <div class="calendar-day"><span class="day-number">28</span></div>
+        <div class="calendar-day"><span class="day-number">29</span></div>
+        <div class="calendar-day"><span class="day-number">30</span><span class="day-tag">Q3 季末作帳</span></div>
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day empty"></div>
+      </div>
+    </section>
+
+    <!-- 國際財經行事曆列表 -->
+    <section class="events-container">
+      <h2 class="section-title">9 月近期國際關鍵財經日程與節氣對照</h2>
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>地區 / 國家</th>
+            <th>財經事件 / 節氣轉折</th>
+            <th>市場重要性</th>
+            <th>對應節氣</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2026-09-07</td>
+            <td>台灣 / 農民曆</td>
+            <td>交節氣「白露」，進入農曆八月氣候與市場轉折點</td>
+            <td><span class="event-impact impact-high">高重要性</span></td>
+            <td>白露</td>
+          </tr>
+          <tr>
+            <td>2026-09-11</td>
+            <td>美國 (US)</td>
+            <td>公布 8 月 CPI 消費者物價指數</td>
+            <td><span class="event-impact impact-high">高重要性</span></td>
+            <td>白露</td>
+          </tr>
+          <tr>
+            <td>2026-09-17</td>
+            <td>美國 (US)</td>
+            <td>聯準會 FOMC 利率決議與經濟預測點陣圖發布</td>
+            <td><span class="event-impact impact-high">高重要性</span></td>
+            <td>白露末期</td>
+          </tr>
+          <tr>
+            <td>2026-09-22</td>
+            <td>全球 / 農民曆</td>
+            <td>交節氣「秋分」，晝夜平分，全球資金多空對峙期</td>
+            <td><span class="event-impact impact-high">高重要性</span></td>
+            <td>秋分</td>
+          </tr>
+          <tr>
+            <td>2026-09-25</td>
+            <td>台灣 / 東亞</td>
+            <td>中秋節假期，留意市場連假前觀望避險賣壓</td>
+            <td><span class="event-impact impact-medium">中重要性</span></td>
+            <td>秋分</td>
+          </tr>
+          <tr>
+            <td>2026-09-30</td>
+            <td>全球</td>
+            <td>第三季 (Q3) 結束，投信與法人集團季末終極作帳</td>
+            <td><span class="event-impact impact-high">高重要性</span></td>
+            <td>秋分</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- 頁尾宣告區域 -->
+  <footer>
+    <p>© 2026 節氣財經網 SolarTerm Finance. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript：月份切換簡易邏輯 -->
+  <script>
+    let currentYear = 2026;
+    let currentMonth = 9;
+
+    function changeMonth(step) {
+      currentMonth += step;
+      if (currentMonth > 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else if (currentMonth < 1) {
+        currentMonth = 12;
+        currentYear--;
+      }
+      document.getElementById('calendarMonthTitle').textContent = `${currentYear} 年 ${currentMonth} 月`;
+    }
+  </script>
+</body>
+</html>

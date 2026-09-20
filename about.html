@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>關於我們 - 節氣財經網 SolarTerm Finance</title>
+  <style>
+    /* ==========================================================================
+       CSS 變數定義：莫蘭迪色彩與專業金融質感（沿用首頁）
+       ========================================================================== */
+    :root {
+      --bg-primary: #f4f5f6;     /* 頁面主要背景色 */
+      --bg-card: #ffffff;        /* 卡片與容器背景色 */
+      --text-main: #2b333e;      /* 主要文字顏色 */
+      --text-muted: #5a6578;     /* 次要與說明文字顏色 */
+      --accent-color: #a86255;   /* 莫蘭迪朱紅/赭石色：焦點與警示標記 */
+      --primary-color: #3d5a73;  /* 莫蘭迪藍灰：主要標題與品牌主色 */
+      --border-color: #dcdfe3;   /* 邊框分隔線顏色 */
+      --nav-bg: #2e3a46;         /* 頂部導覽列背景色 */
+      --nav-text: #e2e8f0;       /* 導覽列文字顏色 */
+      --footer-bg: #212932;      /* 頁尾背景色 */
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    header {
+      background-color: var(--nav-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #c5a059;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #c5a059;
+    }
+
+    /* ==========================================================================
+       主體內容通用容器 (Main Container)
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       頁面標題區塊 (Page Header Section)
+       ========================================================================== */
+    .page-header {
+      background: linear-gradient(135deg, #3d5a73 0%, #2b3d4f 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #e5c17c;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       品牌理念與核心價值區塊 (Core Concept & Values)
+       ========================================================================== */
+    .concept-section {
+      background-color: var(--bg-card);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      padding: 2.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.2rem;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .concept-text {
+      font-size: 0.98rem;
+      color: var(--text-main);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .value-card {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .value-icon {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .value-title {
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .value-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       研究團隊介紹 (Team Section)
+       ========================================================================== */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .team-card {
+      background-color: var(--bg-card);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .team-role {
+      font-size: 0.8rem;
+      color: var(--accent-color);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.25rem;
+    }
+
+    .team-name {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    .team-bio {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       聯絡與合作區塊 (Contact Callout)
+       ========================================================================== */
+    .cta-section {
+      background-color: #e9ecef;
+      padding: 2.5rem 2rem;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .cta-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    .cta-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .cta-btn:hover {
+      background-color: #2b3d4f;
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列：高亮「關於我們」 -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">節氣財經網<span>SolarTerm Finance</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="calendar.html">節氣行事曆</a></li>
+          <li><a href="signals.html">技術警示</a></li>
+          <li><a href="notes.html">投資筆記</a></li>
+          <li><a href="news.html">全球脈動</a></li>
+          <li><a href="about.html" class="active">關於我們</a></li>
+          <li><a href="contact.html">社群聯絡</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容區域 -->
+  <main>
+
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="page-kicker">ABOUT SOLARTERM FINANCE</div>
+      <h1 class="page-title">順應天時，量化理財</h1>
+      <p class="page-subtitle">融合古老節氣智慧與現代量化數據，打造獨具洞察力的財經研究平台。</p>
+    </section>
+
+    <!-- 創立理念區塊 -->
+    <section class="concept-section">
+      <h2 class="section-title">我們的創立初衷</h2>
+      <p class="concept-text">
+        二十四節氣不僅是古代農業社會的氣候曆法，更是反映大自然能量循環與季節轉折的精妙體系。現代金融市場雖然由演算法與全球資本驅動，但其背後的投資人心理、產業供應鏈淡旺季與資金流向，同樣呈現高度的週期性規律。
+      </p>
+      <p class="concept-text">
+        「節氣財經網」創立於 2026 年，旨在將東方節氣的週期思維融入現代總體經濟與技術分析中。我們不提供誇大的保證收益，而是透過數據客觀梳理市場脈動，幫助投資人在市場熱情時保持警覺，在氣候轉折處發現價值。
+      </p>
+
+      <!-- 核心價值網格 -->
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">01</div>
+          <h3 class="value-title">週期思維</h3>
+          <p class="value-desc">重視長線時間窗口與季節性循環，不盲目追逐短期噪音，尋找具備規律性的轉折點。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">02</div>
+          <h3 class="value-title">數據驗證</h3>
+          <p class="value-desc">所有節氣指標與技術警示均經過歷史數據統計驗證，結合客觀數字而非憑空臆測。</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">03</div>
+          <h3 class="value-title">理性中立</h3>
+          <p class="value-desc">維持客觀獨立的研究立場，專注於產業趨勢、總體經濟與資金轉向的客觀紀錄。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 研究團隊介紹 -->
+    <section>
+      <h2 class="section-title">核心研究團隊</h2>
+      <div class="team-grid">
+
+        <!-- 成員 1 -->
+        <article class="team-card">
+          <span class="team-role">首席策略分析師</span>
+          <h3 class="team-name">陳節銘 (Mark Chen)</h3>
+          <p class="team-bio">擁有 15 年資產管理與總體經濟研究經驗，專精於全球央行貨幣政策、流動性週期與節氣轉折點的量化模型建立。</p>
+        </article>
+
+        <!-- 成員 2 -->
+        <article class="team-card">
+          <span class="team-role">量化技術總監</span>
+          <h3 class="team-name">林瑞華 (Ray Lin)</h3>
+          <p class="team-bio">前外商投信量化交易員，專長為籌碼面追蹤、技術指標優化與自動化市場訊號監測系統之開發。</p>
+        </article>
+
+        <!-- 成員 3 -->
+        <article class="team-card">
+          <span class="team-role">產業研究主管</span>
+          <h3 class="team-name">張詠涵 (Hannah Chang)</h3>
+          <p class="team-bio">深耕半導體與消費電子供應鏈研究近十年，擅長結合傳統淡旺季與節氣時點剖析企業基本面動向。</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 聯絡與合作引導 -->
+    <section class="cta-section">
+      <h2 class="cta-title">想了解更多或尋求合作？</h2>
+      <p class="cta-desc">我們提供法人諮詢、節氣數據串接與專題講座服務。歡迎與我們的專業團隊聯繫。</p>
+      <a href="contact.html" class="cta-btn">與我們取得聯繫</a>
+    </section>
+
+  </main>
+
+  <!-- 頁尾宣告區域 -->
+  <footer>
+    <p>© 2026 節氣財經網 SolarTerm Finance. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球脈動 - 節氣財經網 SolarTerm Finance</title>
+  <style>
+    /* ==========================================================================
+       CSS 變數定義：莫蘭迪色彩與專業金融質感（沿用首頁）
+       ========================================================================== */
+    :root {
+      --bg-primary: #f4f5f6;     /* 頁面主要背景色 */
+      --bg-card: #ffffff;        /* 卡片與容器背景色 */
+      --text-main: #2b333e;      /* 主要文字顏色 */
+      --text-muted: #5a6578;     /* 次要與說明文字顏色 */
+      --accent-color: #a86255;   /* 莫蘭迪朱紅/赭石色：焦點與警示標記 */
+      --primary-color: #3d5a73;  /* 莫蘭迪藍灰：主要標題與品牌主色 */
+      --border-color: #dcdfe3;   /* 邊框分隔線顏色 */
+      --nav-bg: #2e3a46;         /* 頂部導覽列背景色 */
+      --nav-text: #e2e8f0;       /* 導覽列文字顏色 */
+      --footer-bg: #212932;      /* 頁尾背景色 */
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    header {
+      background-color: var(--nav-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #c5a059;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #c5a059;
+    }
+
+    /* ==========================================================================
+       主體內容通用容器 (Main Container)
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       頁面標題區塊 (Page Header Section)
+       ========================================================================== */
+    .page-header {
+      background: linear-gradient(135deg, #3d5a73 0%, #2b3d4f 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #e5c17c;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       即時快訊與焦點新聞 (Featured News & Quick News)
+       ========================================================================== */
+    .news-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .news-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .featured-news {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: #ffffff;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+
+    .featured-title {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+
+    .featured-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .news-meta-info {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 1rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 1rem;
+    }
+
+    .sidebar-widget {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .widget-title {
+      font-size: 1.1rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--primary-color);
+    }
+
+    .ticker-list {
+      list-style: none;
+    }
+
+    .ticker-item {
+      padding: 0.75rem 0;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .ticker-item:last-child {
+      border-bottom: none;
+    }
+
+    .ticker-time {
+      font-size: 0.75rem;
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+
+    .ticker-text {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      text-decoration: none;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    .ticker-text:hover {
+      color: var(--primary-color);
+    }
+
+    /* ==========================================================================
+       分類新聞列表 (Categorized News Section)
+       ========================================================================== */
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.2rem;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .news-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .news-category {
+      font-size: 0.75rem;
+      color: var(--primary-color);
+      background-color: rgba(61, 90, 115, 0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      width: fit-content;
+      margin-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .card-snippet {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列：高亮「全球脈動」 -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">節氣財經網<span>SolarTerm Finance</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="calendar.html">節氣行事曆</a></li>
+          <li><a href="signals.html">技術警示</a></li>
+          <li><a href="notes.html">投資筆記</a></li>
+          <li><a href="news.html" class="active">全球脈動</a></li>
+          <li><a href="about.html">關於我們</a></li>
+          <li><a href="contact.html">社群聯絡</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容區域 -->
+  <main>
+
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="page-kicker">GLOBAL MARKET PULSE</div>
+      <h1 class="page-title">全球財經脈動與節氣觀測</h1>
+      <p class="page-subtitle">即時追蹤全球總體經濟、央行動態、產業原物料行情，結合二十四節氣時間節點深度剖析。</p>
+    </section>
+
+    <!-- 頭條新聞與即時快訊區塊 -->
+    <section class="news-layout">
+      <!-- 焦點頭條 -->
+      <article class="featured-news">
+        <div>
+          <span class="featured-badge">焦點頭條</span>
+          <h2 class="featured-title">驚蟄前夕全球央行例會密集登場：利率決策與節氣資金潮動向解析</h2>
+          <p class="featured-desc">隨著春季首個重要節氣驚蟄接近，美國聯準會（Fed）與歐洲央行（ECB）將先後公布最新貨幣政策決議。歷史數據顯示，春季節氣轉換期間往往伴隨全球資金重新配置，市場關注債券殖利率曲線變化與高科技類股資金流向。</p>
+        </div>
+        <div class="news-meta-info">
+          <span>發布時間：2026-03-05 09:30</span>
+          <span>分類：總體經濟 / 央行動態</span>
+        </div>
+      </article>
+
+      <!-- 右側即時快訊 -->
+      <aside class="sidebar-widget">
+        <h3 class="widget-title">即時財經快訊</h3>
+        <ul class="ticker-list">
+          <li class="ticker-item">
+            <span class="ticker-time">14:15</span>
+            <a href="#" class="ticker-text">亞洲主要股市今日因科技股帶頭反彈，半導體供應鏈漲幅顯著。</a>
+          </li>
+          <li class="ticker-item">
+            <span class="ticker-time">12:30</span>
+            <a href="#" class="ticker-text">國際原油價格受中東氣候與春耕需求影響，短期呈現窄幅震盪。</a>
+          </li>
+          <li class="ticker-item">
+            <span class="ticker-time">10:45</span>
+            <a href="#" class="ticker-text">最新公布之採購經理人指數（PMI）顯示製造業景氣於立春後回溫。</a>
+          </li>
+          <li class="ticker-item">
+            <span class="ticker-time">08:20</span>
+            <a href="#" class="ticker-text">美元指數維持在 103 關卡上方，投資人等待晚間非農就業數據。</a>
+          </li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- 分類新聞網格 -->
+    <section>
+      <h2 class="section-title">重點市場剖析</h2>
+      <div class="news-grid">
+
+        <!-- 新聞卡片 1 -->
+        <article class="news-card">
+          <div>
+            <span class="news-category">原物料與農產品</span>
+            <h3 class="card-title">春耕季節臨近：大豆與玉米期貨的節氣季節性行情探討</h3>
+            <p class="card-snippet">隨著驚蟄與春分節氣逼近，北半球農作物播種期展開。本文分析極端氣候對農產品期貨波動率的具體影響。</p>
+          </div>
+          <div class="news-meta-info">
+            <span>2026-03-04</span>
+            <span>觀點分析</span>
+          </div>
+        </article>
+
+        <!-- 新聞卡片 2 -->
+        <article class="news-card">
+          <div>
+            <span class="news-category">科技與供應鏈</span>
+            <h3 class="card-title">第一季末拉貨潮啟動：AI 伺服器與半導體封測庫存數據更新</h3>
+            <p class="card-snippet">主要代工大廠 2 月營收高於預期，顯示電子供應鏈在春節過後加速拉貨，帶動相關概念股重回年線之上。</p>
+          </div>
+          <div class="news-meta-info">
+            <span>2026-03-03</span>
+            <span>產業產業</span>
+          </div>
+        </article>
+
+        <!-- 新聞卡片 3 -->
+        <article class="news-card">
+          <div>
+            <span class="news-category">外匯與債券</span>
+            <h3 class="card-title">美債殖利率回檔：機構法人於立春至春分間的建倉佈局</h3>
+            <p class="card-snippet">十年期美債殖利率近日拉回，吸引長線價值型法人資金進駐。專家指出，第一季末前債券市場流動性充足。</p>
+          </div>
+          <div class="news-meta-info">
+            <span>2026-03-02</span>
+            <span>金融市場</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾宣告區域 -->
+  <footer>
+    <p>© 2026 節氣財經網 SolarTerm Finance. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

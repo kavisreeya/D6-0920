@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社群聯絡 - 節氣財經網 SolarTerm Finance</title>
+  <style>
+    /* ==========================================================================
+       CSS 變數定義：莫蘭迪色彩與專業金融質感（沿用首頁）
+       ========================================================================== */
+    :root {
+      --bg-primary: #f4f5f6;     /* 頁面主要背景色 */
+      --bg-card: #ffffff;        /* 卡片與容器背景色 */
+      --text-main: #2b333e;      /* 主要文字顏色 */
+      --text-muted: #5a6578;     /* 次要與說明文字顏色 */
+      --accent-color: #a86255;   /* 莫蘭迪朱紅/赭石色：焦點與警示標記 */
+      --primary-color: #3d5a73;  /* 莫蘭迪藍灰：主要標題與品牌主色 */
+      --border-color: #dcdfe3;   /* 邊框分隔線顏色 */
+      --nav-bg: #2e3a46;         /* 頂部導覽列背景色 */
+      --nav-text: #e2e8f0;       /* 導覽列文字顏色 */
+      --footer-bg: #212932;      /* 頁尾背景色 */
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    header {
+      background-color: var(--nav-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #c5a059;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #c5a059;
+    }
+
+    /* ==========================================================================
+       主體內容通用容器 (Main Container)
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       頁面標題區塊 (Page Header Section)
+       ========================================================================== */
+    .page-header {
+      background: linear-gradient(135deg, #3d5a73 0%, #2b3d4f 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #e5c17c;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       雙欄配置區塊 (Contact Layout Section)
+       ========================================================================== */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contact-card {
+      background-color: var(--bg-card);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 1.2rem;
+      background-color: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    /* 表單樣式 */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      background-color: #fdfdfd;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .submit-btn {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+      background-color: #2b3d4f;
+    }
+
+    .form-notice {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+
+    /* 社群頻道與聯絡資訊列表 */
+    .community-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .community-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .community-item:last-child {
+      border-bottom: none;
+    }
+
+    .community-badge {
+      background-color: rgba(61, 90, 115, 0.1);
+      color: var(--primary-color);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      margin-right: 1rem;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .community-info h3 {
+      font-size: 1rem;
+      color: var(--primary-color);
+      margin-bottom: 0.2rem;
+    }
+
+    .community-info p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .info-box {
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.25rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .info-box strong {
+      color: var(--text-main);
+    }
+
+    /* Success message prompt */
+    .success-alert {
+      display: none;
+      background-color: rgba(61, 90, 115, 0.15);
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列：高亮「社群聯絡」 -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">節氣財經網<span>SolarTerm Finance</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="calendar.html">節氣行事曆</a></li>
+          <li><a href="signals.html">技術警示</a></li>
+          <li><a href="notes.html">投資筆記</a></li>
+          <li><a href="news.html">全球脈動</a></li>
+          <li><a href="about.html">關於我們</a></li>
+          <li><a href="contact.html" class="active">社群聯絡</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容區域 -->
+  <main>
+
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="page-kicker">COMMUNITY & CONTACT</div>
+      <h1 class="page-title">加入社群與我們聯繫</h1>
+      <p class="page-subtitle">無論是交流節氣投資經驗、反饋市場訊號，或是商務合作諮詢，歡迎透過以下管道與我們保持互動。</p>
+    </section>
+
+    <!-- 雙欄內容區塊：左側聯絡表單、右側社群管道 -->
+    <div class="contact-layout">
+
+      <!-- 左欄：在線表單 -->
+      <section class="contact-card">
+        <h2 class="section-title">線上訊息諮詢</h2>
+        
+        <div id="successAlert" class="success-alert">
+          感謝您的留言！我們已收到您的訊息，將會盡快與您聯繫。
+        </div>
+
+        <form id="contactForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="name" class="form-label">您的姓名 / 稱呼 *</label>
+            <input type="text" id="name" class="form-input" placeholder="例：張先生" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">電子郵件 信箱 *</label>
+            <input type="email" id="email" class="form-input" placeholder="name@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="topic" class="form-label">諮詢主題 *</label>
+            <select id="topic" class="form-select" required>
+              <option value="">請選擇諮詢項目</option>
+              <option value="research">節氣策略與文章交流</option>
+              <option value="signal">技術警示指標反饋</option>
+              <option value="business">商務合作與法人諮詢</option>
+              <option value="other">其他問題</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">訊息內容 *</label>
+            <textarea id="message" class="form-textarea" placeholder="請詳細說明您的需求或指教..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">傳送訊息</button>
+          <p class="form-notice">我們承諾保護您的個人資料，僅用於回覆您的諮詢。</p>
+        </form>
+      </section>
+
+      <!-- 右欄：社群頻道與營運資訊 -->
+      <section class="contact-card">
+        <h2 class="section-title">官方社群頻道</h2>
+        <ul class="community-list">
+          <li class="community-item">
+            <span class="community-badge">LINE 群組</span>
+            <div class="community-info">
+              <h3>節氣財經交流 VIP 群</h3>
+              <p>即時接收每日節氣提醒、盤中技術警示發布與成員交流。</p>
+            </div>
+          </li>
+
+          <li class="community-item">
+            <span class="community-badge">Telegram</span>
+            <div class="community-info">
+              <h3>SolarTerm Finance 廣播頻道</h3>
+              <p>無噪音的市場數據推送、總體經濟報告與週報更新。</p>
+            </div>
+          </li>
+
+          <li class="community-item">
+            <span class="community-badge">Newsletter</span>
+            <div class="community-info">
+              <h3>節氣電子報（每節氣發行）</h3>
+              <p>每個節氣前夕整理深度研究筆記與週期觀察報告。</p>
+            </div>
+          </li>
+        </ul>
+
+        <div class="info-box">
+          <p><strong>聯絡時間：</strong> 週一至週五 09:00 - 18:00 (UTC+8)</p>
+          <p><strong>客服信箱：</strong> support@solartermfinance.com</p>
+          <p><strong>研究合作：</strong> research@solartermfinance.com</p>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- 頁尾宣告區域 -->
+  <footer>
+    <p>© 2026 節氣財經網 SolarTerm Finance. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript：簡化表單提交模擬 -->
+  <script>
+    /**
+     * 處理聯絡表單送出事件
+     */
+    function handleFormSubmit(event) {
+      event.preventDefault(); // 阻止表單預設送出行為
+
+      // 顯示成功提示
+      const alertBox = document.getElementById('successAlert');
+      alertBox.style.display = 'block';
+
+      // 清空表單
+      document.getElementById('contactForm').reset();
+
+      // 5 秒後自動隱藏提示
+      setTimeout(() => {
+        alertBox.style.display = 'none';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

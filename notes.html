@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>投資筆記 - 節氣財經網 SolarTerm Finance</title>
+  <style>
+    /* ==========================================================================
+       CSS 變數定義：莫蘭迪色彩與專業金融質感（沿用首頁）
+       ========================================================================== */
+    :root {
+      --bg-primary: #f4f5f6;     /* 頁面主要背景色 */
+      --bg-card: #ffffff;        /* 卡片與容器背景色 */
+      --text-main: #2b333e;      /* 主要文字顏色 */
+      --text-muted: #5a6578;     /* 次要與說明文字顏色 */
+      --accent-color: #a86255;   /* 莫蘭迪朱紅/赭石色：焦點與警示標記 */
+      --primary-color: #3d5a73;  /* 莫蘭迪藍灰：主要標題與品牌主色 */
+      --border-color: #dcdfe3;   /* 邊框分隔線顏色 */
+      --nav-bg: #2e3a46;         /* 頂部導覽列背景色 */
+      --nav-text: #e2e8f0;       /* 導覽列文字顏色 */
+      --footer-bg: #212932;      /* 頁尾背景色 */
+    }
+
+    /* ==========================================================================
+       基礎重置與排版設定
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       頂部導覽列 (Header & Navigation)
+       ========================================================================== */
+    header {
+      background-color: var(--nav-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+
+    .logo {
+      color: #ffffff;
+      font-size: 1.25rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #c5a059;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: var(--nav-text);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: #c5a059;
+    }
+
+    /* ==========================================================================
+       主體內容通用容器 (Main Container)
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* ==========================================================================
+       頁面標題區塊 (Page Header Section)
+       ========================================================================== */
+    .page-header {
+      background: linear-gradient(135deg, #3d5a73 0%, #2b3d4f 100%);
+      color: #ffffff;
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-kicker {
+      display: inline-block;
+      background-color: rgba(197, 160, 89, 0.2);
+      color: #e5c17c;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+      border: 1px solid rgba(197, 160, 89, 0.4);
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+
+    /* ==========================================================================
+       分類標籤列 (Category Filter Tabs)
+       ========================================================================== */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background-color: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      padding: 0.5rem 1.25rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover, .tab-btn.active {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border-color: var(--primary-color);
+    }
+
+    /* ==========================================================================
+       筆記卡片網格 (Notes Grid)
+       ========================================================================== */
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .note-card {
+      background-color: var(--bg-card);
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .note-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .note-card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .note-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .note-tag {
+      font-size: 0.75rem;
+      background-color: rgba(61, 90, 115, 0.1);
+      color: var(--primary-color);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .note-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .note-title {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .note-summary {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .note-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .read-time {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .read-more-link {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .read-more-link:hover {
+      color: #8c4e43;
+    }
+
+    /* ==========================================================================
+       聯絡區塊 (Contact Section)
+       ========================================================================== */
+    .contact-section {
+      background-color: #e9ecef;
+      padding: 2.5rem 2rem;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 2rem;
+      border: 1px solid var(--border-color);
+    }
+
+    .contact-title {
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 1.5rem auto;
+    }
+
+    .contact-actions {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: #ffffff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .contact-btn:hover {
+      background-color: #2b3d4f;
+    }
+
+    .contact-btn-outline {
+      display: inline-block;
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+      padding: 0.6rem 1.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .contact-btn-outline:hover {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    /* ==========================================================================
+       頁尾 (Footer)
+       ========================================================================== */
+    footer {
+      background-color: var(--footer-bg);
+      color: #94a3b8;
+      text-align: center;
+      padding: 1.5rem;
+      font-size: 0.85rem;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 頂部導覽列：高亮「投資筆記」 -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">節氣財經網<span>SolarTerm Finance</span></a>
+      <nav>
+        <ul>
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="calendar.html">節氣行事曆</a></li>
+          <li><a href="signals.html">技術警示</a></li>
+          <li><a href="notes.html" class="active">投資筆記</a></li>
+          <li><a href="news.html">全球脈動</a></li>
+          <li><a href="about.html">關於我們</a></li>
+          <li><a href="contact.html">社群聯絡</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 主要內容區域 -->
+  <main>
+
+    <!-- 頁面標題區塊 -->
+    <section class="page-header">
+      <div class="page-kicker">INVESTMENT INSIGHTS</div>
+      <h1 class="page-title">節氣投資策略筆記</h1>
+      <p class="page-subtitle">深入探討節氣週期對資本市場的影響，紀錄總體經濟觀察、產業週期與實戰操作心法。</p>
+    </section>
+
+    <!-- 分類篩選標籤 -->
+    <div class="filter-tabs">
+      <button class="tab-btn active" onclick="filterCategory('all')">全部文章</button>
+      <button class="tab-btn" onclick="filterCategory('cycle')">週期規律</button>
+      <button class="tab-btn" onclick="filterCategory('macro')">總體經濟</button>
+      <button class="tab-btn" onclick="filterCategory('strategy')">實戰策略</button>
+    </div>
+
+    <!-- 投資筆記卡片網格 -->
+    <section class="notes-section">
+      <div class="notes-grid" id="notesGrid">
+
+        <!-- 文章 1 -->
+        <article class="note-card" data-category="cycle">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">週期規律</span>
+              <span class="note-date">2026-03-01</span>
+            </div>
+            <h2 class="note-title">驚蟄至春分：財報季下的多空轉折與節氣密碼</h2>
+            <p class="note-summary">每年驚蟄前後正是上市櫃公司年度財報公布的高峰期。本文從歷史數據出發，解析氣溫回暖與市場流動性釋放之間的關聯性。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 5 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 文章 2 -->
+        <article class="note-card" data-category="strategy">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">實戰策略</span>
+              <span class="note-date">2026-02-18</span>
+            </div>
+            <h2 class="note-title">「Sell in May」是真的嗎？立夏前的資產避險配置</h2>
+            <p class="note-summary">華爾街諺語 Sell in May and go away 在傳統節氣「立夏」前後常常獲得驗證。本文拆解季節性賣壓的背後邏輯與防禦型資產配置法。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 7 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 文章 3 -->
+        <article class="note-card" data-category="macro">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">總體經濟</span>
+              <span class="note-date">2026-02-05</span>
+            </div>
+            <h2 class="note-title">立春開局：全球央行貨幣政策與四季資產輪動</h2>
+            <p class="note-summary">立春代表萬物復甦，也是全球主要央行釐清年度貨幣政策方向的重要時間節點。掌握降息週期下的高殖利率股佈局タイミング。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 6 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 文章 4 -->
+        <article class="note-card" data-category="cycle">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">週期規律</span>
+              <span class="note-date">2026-01-20</span>
+            </div>
+            <h2 class="note-title">大寒過後見曙光：歷年封關與紅包行情歷史胜率統計</h2>
+            <p class="note-summary">統計近十年大寒至立春期間的股市表現，分析內資作帳與節前抱股過年意願，為投資人建立客觀數據模型。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 8 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 文章 5 -->
+        <article class="note-card" data-category="strategy">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">實戰策略</span>
+              <span class="note-date">2026-01-08</span>
+            </div>
+            <h2 class="note-title">小寒時節的科技股拉貨潮：供應鏈淡旺季週期拆解</h2>
+            <p class="note-summary">電子產業傳統淡旺季與二十四節氣的農耕規律有異曲同工之妙。本文深入探討半導體與消費電子補庫存週期的時間點。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 6 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 文章 6 -->
+        <article class="note-card" data-category="macro">
+          <div class="note-card-body">
+            <div class="note-meta">
+              <span class="note-tag">總體經濟</span>
+              <span class="note-date">2025-12-21</span>
+            </div>
+            <h2 class="note-title">冬至至極而陽生：尋找長線價值投資的市場谷底訊號</h2>
+            <p class="note-summary">極陰之際正是陽氣萌發之時。如何在市場最悲觀的冬至時刻，透過基本面指標識別超跌的績優龍頭企業。</p>
+            <div class="note-footer">
+              <span class="read-time">閱讀時間 5 分鐘</span>
+              <a href="#" class="read-more-link">閱讀全文 &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 聯絡與交流區塊 -->
+    <section class="contact-section">
+      <h2 class="contact-title">有獨到的節氣投資觀察想要交流？</h2>
+      <p class="contact-desc">我們歡迎各界研究員與投資愛好者投稿交流。若您對特定節氣週期研究有興趣，歡迎隨時與我們聯絡。</p>
+      <div class="contact-actions">
+        <a href="mailto:notes@solartermfinance.com?subject=節氣投資筆記-投稿與交流" class="contact-btn">投稿或交流</a>
+        <a href="contact.html" class="contact-btn-outline">加入研究社群</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾宣告區域 -->
+  <footer>
+    <p>© 2026 節氣財經網 SolarTerm Finance. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript：分類動態篩選功能 -->
+  <script>
+    /**
+     * 根據選擇的分類篩選顯示文章卡片
+     * @param {string} category - 文章分類名稱 ('all', 'cycle', 'macro', 'strategy')
+     */
+    function filterCategory(category) {
+      // 1. 更新頁籤按鈕的高亮狀態
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // 2. 控制筆記卡片的顯示/隱藏
+      const cards = document.querySelectorAll('.note-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
